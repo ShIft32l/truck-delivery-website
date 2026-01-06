@@ -389,6 +389,14 @@ img {
     font-size: 1.1rem;
 }
 
+.contact-info a {
+    transition: var(--transition);
+}
+
+.contact-info a:hover {
+    color: var(--accent-color);
+}
+
 .quote-form {
     padding: 60px 40px;
 }
