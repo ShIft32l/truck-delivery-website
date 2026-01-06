@@ -120,7 +120,7 @@ img {
     left: 0;
     width: 100%;
     z-index: 1000;
-    height: 70px;
+    height: 90px;
     display: flex;
     align-items: center;
 }
@@ -135,6 +135,14 @@ img {
 .logo {
     font-size: 1.5rem;
     color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo img {
+    height: 70px;
+    width: auto;
 }
 
 .logo .accent {
@@ -182,7 +190,7 @@ img {
     display: flex;
     align-items: center;
     color: var(--white);
-    margin-top: 70px;
+    margin-top: 90px;
     /* Offset for fixed header */
 }
 
@@ -519,7 +527,7 @@ textarea:focus {
 
     .nav-links {
         position: absolute;
-        top: 70px;
+        top: 90px;
         left: 0;
         width: 100%;
         background-color: var(--white);
