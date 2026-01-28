@@ -398,6 +398,10 @@ img {
     margin-bottom: 15px;
     font-size: 0.95rem;
     color: var(--text-secondary);
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .testimonial-card .author {
