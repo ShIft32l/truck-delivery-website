@@ -309,8 +309,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 slidesPerView = 1;
             } else if (window.innerWidth <= 992) {
                 slidesPerView = 2;
-            } else {
+            } else if (window.innerWidth <= 1200) {
                 slidesPerView = 3;
+            } else {
+                slidesPerView = 4;
             }
         };
 

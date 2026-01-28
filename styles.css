@@ -365,7 +365,7 @@ img {
 }
 
 .testimonial-slide {
-    min-width: calc(33.333% - 14px);
+    min-width: calc(25% - 15px);
     margin-right: 20px;
     flex-shrink: 0;
 }
@@ -376,16 +376,18 @@ img {
 
 .testimonial-card {
     background: var(--white);
-    padding: 18px 20px;
+    padding: 15px 18px;
     border-radius: 8px;
     border-left: 4px solid var(--accent-color);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     transition: var(--transition);
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    min-height: 140px;
+    justify-content: flex-start;
+    min-height: 110px;
+    max-width: 250px;
+    margin: 0 auto;
 }
 
 .testimonial-card:hover {
