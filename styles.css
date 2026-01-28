@@ -460,9 +460,20 @@ img {
 }
 
 /* Responsive Testimonials */
+@media (max-width: 1200px) {
+    .testimonial-slide {
+        min-width: calc(33.333% - 14px);
+    }
+}
+
 @media (max-width: 992px) {
     .testimonial-slide {
         min-width: calc(50% - 10px);
+    }
+
+    .testimonial-card {
+        max-width: 100%;
+        margin: 0;
     }
 }
 
@@ -470,6 +481,12 @@ img {
     .testimonial-slide {
         min-width: 100%;
         margin-right: 0;
+    }
+
+    .testimonials-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
     }
 }
 
