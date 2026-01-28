@@ -345,10 +345,33 @@ img {
 }
 
 /* Testimonials */
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+/* Testimonials Carousel Section */
+.testimonials-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.testimonials-track-container {
+    overflow: hidden;
+    flex: 1;
+}
+
+.testimonials-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.testimonial-slide {
+    min-width: calc(33.333% - 14px);
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.testimonial-slide:last-child {
+    margin-right: 0;
 }
 
 .testimonial-card {
@@ -358,6 +381,10 @@ img {
     border-left: 4px solid var(--accent-color);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     transition: var(--transition);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .testimonial-card:hover {
@@ -373,6 +400,66 @@ img {
 .testimonial-card .author {
     font-weight: 600;
     color: var(--accent-color);
+}
+
+/* Testimonials Navigation Buttons */
+.testimonials-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: var(--primary-color);
+    color: var(--white);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0, 51, 102, 0.3);
+}
+
+.testimonials-btn:hover {
+    background: var(--accent-color);
+    transform: scale(1.1);
+}
+
+/* Testimonials Dots */
+.testimonials-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.testimonials-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ddd;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.testimonials-dot.active {
+    background: var(--accent-color);
+    transform: scale(1.2);
+}
+
+/* Responsive Testimonials */
+@media (max-width: 992px) {
+    .testimonial-slide {
+        min-width: calc(50% - 10px);
+    }
+}
+
+@media (max-width: 576px) {
+    .testimonial-slide {
+        min-width: 100%;
+        margin-right: 0;
+    }
 }
 
 /* Gallery Carousel Section */
