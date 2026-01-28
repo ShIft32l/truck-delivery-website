@@ -376,7 +376,7 @@ img {
 
 .testimonial-card {
     background: var(--white);
-    padding: 30px;
+    padding: 25px;
     border-radius: 8px;
     border-left: 4px solid var(--accent-color);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
@@ -385,6 +385,7 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-height: 180px;
 }
 
 .testimonial-card:hover {
@@ -394,12 +395,15 @@ img {
 
 .testimonial-card p {
     font-style: italic;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
 }
 
 .testimonial-card .author {
     font-weight: 600;
     color: var(--accent-color);
+    font-size: 0.9rem;
 }
 
 /* Testimonials Navigation Buttons */
