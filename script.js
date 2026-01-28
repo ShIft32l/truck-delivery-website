@@ -101,4 +101,189 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Gallery Carousel
+    const galleryCarousel = () => {
+        const track = document.querySelector('.gallery-track');
+        const slides = document.querySelectorAll('.gallery-slide');
+        const prevBtn = document.querySelector('.gallery-btn-prev');
+        const nextBtn = document.querySelector('.gallery-btn-next');
+        const dotsContainer = document.querySelector('.gallery-dots');
+        
+        if (!track || slides.length === 0) return;
+
+        let currentIndex = 0;
+        let slidesPerView = 3;
+        let autoPlayInterval;
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+
+        // Determine slides per view based on screen width
+        const updateSlidesPerView = () => {
+            if (window.innerWidth <= 576) {
+                slidesPerView = 1;
+            } else if (window.innerWidth <= 992) {
+                slidesPerView = 2;
+            } else {
+                slidesPerView = 3;
+            }
+        };
+
+        // Create dots
+        const createDots = () => {
+            dotsContainer.innerHTML = '';
+            const totalDots = Math.ceil(slides.length / slidesPerView);
+            for (let i = 0; i < totalDots; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('gallery-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i * slidesPerView));
+                dotsContainer.appendChild(dot);
+            }
+        };
+
+        // Update dots
+        const updateDots = () => {
+            const dots = document.querySelectorAll('.gallery-dot');
+            const activeDotIndex = Math.floor(currentIndex / slidesPerView);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeDotIndex);
+            });
+        };
+
+        // Calculate slide width
+        const getSlideWidth = () => {
+            const slide = slides[0];
+            const style = getComputedStyle(slide);
+            const marginRight = parseInt(style.marginRight) || 0;
+            return slide.offsetWidth + marginRight;
+        };
+
+        // Move to specific slide
+        const goToSlide = (index) => {
+            const maxIndex = slides.length - slidesPerView;
+            currentIndex = Math.max(0, Math.min(index, maxIndex));
+            const slideWidth = getSlideWidth();
+            const offset = -currentIndex * slideWidth;
+            track.style.transform = `translateX(${offset}px)`;
+            prevTranslate = offset;
+            updateDots();
+        };
+
+        // Next slide
+        const nextSlide = () => {
+            const maxIndex = slides.length - slidesPerView;
+            if (currentIndex >= maxIndex) {
+                goToSlide(0);
+            } else {
+                goToSlide(currentIndex + 1);
+            }
+        };
+
+        // Previous slide
+        const prevSlide = () => {
+            if (currentIndex <= 0) {
+                goToSlide(slides.length - slidesPerView);
+            } else {
+                goToSlide(currentIndex - 1);
+            }
+        };
+
+        // Auto play
+        const startAutoPlay = () => {
+            stopAutoPlay();
+            autoPlayInterval = setInterval(nextSlide, 4000);
+        };
+
+        const stopAutoPlay = () => {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+            }
+        };
+
+        // Touch/Drag events
+        const dragStart = (e) => {
+            isDragging = true;
+            startPos = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            track.style.transition = 'none';
+            stopAutoPlay();
+        };
+
+        const drag = (e) => {
+            if (!isDragging) return;
+            const currentPosition = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            currentTranslate = prevTranslate + currentPosition - startPos;
+            track.style.transform = `translateX(${currentTranslate}px)`;
+        };
+
+        const dragEnd = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            
+            const movedBy = currentTranslate - prevTranslate;
+            const threshold = getSlideWidth() / 4;
+            
+            if (movedBy < -threshold) {
+                nextSlide();
+            } else if (movedBy > threshold) {
+                prevSlide();
+            } else {
+                goToSlide(currentIndex);
+            }
+            
+            startAutoPlay();
+        };
+
+        // Event listeners
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            stopAutoPlay();
+            startAutoPlay();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            stopAutoPlay();
+            startAutoPlay();
+        });
+
+        // Touch events
+        track.addEventListener('touchstart', dragStart, { passive: true });
+        track.addEventListener('touchmove', drag, { passive: true });
+        track.addEventListener('touchend', dragEnd);
+
+        // Mouse events
+        track.addEventListener('mousedown', dragStart);
+        track.addEventListener('mousemove', drag);
+        track.addEventListener('mouseup', dragEnd);
+        track.addEventListener('mouseleave', () => {
+            if (isDragging) dragEnd();
+        });
+
+        // Prevent image dragging
+        slides.forEach(slide => {
+            slide.addEventListener('dragstart', (e) => e.preventDefault());
+        });
+
+        // Pause on hover
+        track.parentElement.addEventListener('mouseenter', stopAutoPlay);
+        track.parentElement.addEventListener('mouseleave', startAutoPlay);
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            updateSlidesPerView();
+            createDots();
+            goToSlide(Math.min(currentIndex, slides.length - slidesPerView));
+        });
+
+        // Initialize
+        updateSlidesPerView();
+        createDots();
+        startAutoPlay();
+    };
+
+    galleryCarousel();
+
 });
