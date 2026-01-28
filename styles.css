@@ -151,9 +151,10 @@ img {
 
 .logo-text {
     display: flex;
-    flex-direction: row;
-    gap: 5px;
-    align-items: center;
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+    line-height: 1.2;
 }
 
 .nav-links {
@@ -656,13 +657,6 @@ textarea:focus {
 
     .quote-form {
         padding: 40px;
-    }
-
-    .logo-text {
-        flex-direction: column;
-        align-items: flex-start;
-        line-height: 1.2;
-        gap: 0;
     }
 }
 
